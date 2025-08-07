@@ -5,35 +5,442 @@
   <title>College Wishlist - 3D carousel</title>
   <link rel="stylesheet" href="./style.css">
 
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/v4-shims.min.css">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow: hidden;
+      /* background: linear-gradient(45deg, #ff9a9e, #fecfef, #fecfef, #f093fb, #f5576c, #4facfe, #00f2fe);
+      background-size: 400% 400%;
+      animation: backgroundShift 8s ease-in-out infinite; */
+    }
+    
+    @keyframes backgroundShift {
+      0% { background-position: 0% 50%; }
+      25% { background-position: 50% 100%; }
+      50% { background-position: 100% 50%; }
+      75% { background-position: 50% 0%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    .main-frame {
+      width: 100vw;
+      height: 100vh;
+      max-width: none;
+      background: linear-gradient(135deg, 
+        rgba(30, 30, 40, 0.85), 
+        rgba(50, 40, 60, 0.85), 
+        rgba(40, 30, 50, 0.85), 
+        rgba(60, 50, 70, 0.85)
+      );
+      backdrop-filter: blur(10px);
+      border-radius: 0; 
+      box-shadow: none;
+      border: none;
+      padding: 10px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0;
+      left: 0;
+      box-sizing: border-box;
+    }
+    
+    /* Side decorative images */
+    .side-decoration {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 300px;
+      height: 380px;
+      object-fit: contain;
+      border-radius: 0;
+      border: none;
+      opacity: 0.8;
+      transition: all 0.3s ease;
+      z-index: 5;
+      box-shadow: none;
+    }
+    
+    .side-decoration:hover {
+      opacity: 1;
+      transform: translateY(-50%) scale(1.1);
+    }
+    
+    .left-decoration {
+      left: 5px;
+      animation: floatLeft 4s ease-in-out infinite;
+    }
+    
+    .right-decoration {
+      right: 5px;
+      animation: floatRight 4s ease-in-out infinite 2s;
+    }
+    
+    @keyframes floatLeft {
+      0%, 100% { transform: translateY(-50%) translateX(0px); }
+      50% { transform: translateY(-50%) translateX(5px); }
+    }
+    
+    @keyframes floatRight {
+      0%, 100% { transform: translateY(-50%) translateX(0px); }
+      50% { transform: translateY(-50%) translateX(-5px); }
+    }
+    
+    .frame-header {
+      margin-bottom: 20px;
+      padding: 20px;
+      /* background: linear-gradient(45deg, #ff9a9e, #fecfef, #fecfef, #f093fb, #f5576c, #4facfe, #00f2fe);
+      background-size: 400% 400%;
+      animation: backgroundShift 8s ease-in-out infinite; */
+      border-radius: 15px;
+      color: #800000;
+      font-family: 'Georgia', serif;
+      flex-shrink: 0;
+      perspective: 1000px;
+      transform-style: preserve-3d;
+      transition: all 0.5s ease;
+      min-height: 120px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+    
+    /* Header side rakhi decorations */
+    .header-rakhi {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 80px;
+      height: 80px;
+      background: radial-gradient(circle, #ff6b6b, #feca57, #ff9ff3);
+      border-radius: 50%;
+      border: 4px solid #ffd700;
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+      animation: rotateRakhi 4s linear infinite;
+      z-index: 10;
+    }
+    
+    .header-rakhi::before {
+      content: '🎀';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 30px;
+    }
+    
+    .header-rakhi-left {
+      left: 15px;
+      animation-delay: 0s;
+    }
+    
+    .header-rakhi-right {
+      right: 15px;
+      animation-delay: 2s;
+    }
+    
+    @keyframes rotateRakhi {
+      0% { transform: translateY(-50%) rotate(0deg); }
+      100% { transform: translateY(-50%) rotate(360deg); }
+    }
+    
+    .frame-header h1 {
+      font-size: clamp(24px, 4vw, 36px);
+      margin: 0 0 15px 0;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      animation: textFloat 3s ease-in-out infinite;
+      line-height: 1.2;
+      text-align: center;
+      width: 100%;
+    }
+    
+    .frame-header small {
+      font-size: clamp(16px, 2.5vw, 20px);
+      color: #4b0082;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+      text-align: center;
+      width: 100%;
+    }
+    
+    /* Increase image sizes */
+    #spin-container img {
+      width: 200px !important;
+      height: 250px !important;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      transition: all 0.3s ease;
+      margin: 25px;
+    }
+    
+    #spin-container img:hover {
+      transform: scale(1.1);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    }
+        #spin-container .img {
+      width: 200px !important;
+      height: 250px !important;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      transition: all 0.3s ease;
+      margin: 25px;
+    }
+    
+    #spin-container .img:hover {
+      transform: scale(1.1);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    }
+    
+    /* Additional spacing for 3D carousel */
+    #spin-container > * {
+      margin: 30px !important;
+    }
+    
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    @keyframes textFloat {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-5px); }
+    }
+    
+    #drag-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      padding-top: 0;
+      margin-top: -50px;
+    }
+    
+    /* Balloon Animation */
+    .balloon {
+      position: fixed;
+      bottom: -100px;
+      width: 40px;
+      height: 60px;
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      animation: floatUp 8s linear infinite;
+      z-index: 100;
+    }
+    
+    .balloon:nth-child(1) { left: 10%; background: #ff6b6b; animation-delay: 0s; }
+    .balloon:nth-child(2) { left: 20%; background: #4ecdc4; animation-delay: 1s; }
+    .balloon:nth-child(3) { left: 30%; background: #45b7d1; animation-delay: 2s; }
+    .balloon:nth-child(4) { left: 70%; background: #f9ca24; animation-delay: 3s; }
+    .balloon:nth-child(5) { left: 80%; background: #6c5ce7; animation-delay: 4s; }
+    .balloon:nth-child(6) { left: 90%; background: #fd79a8; animation-delay: 5s; }
+      
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0px) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-120vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+    
+    /* Raining Stars */
+    .star {
+      position: fixed;
+      top: -10px;
+      color: #ffd700;
+      font-size: 20px;
+      animation: starRain 6s linear infinite;
+      z-index: 99;
+    }
+    
+    .star:nth-child(1) { left: 5%; animation-delay: 0s; }
+    .star:nth-child(2) { left: 15%; animation-delay: 0.5s; }
+    .star:nth-child(3) { left: 25%; animation-delay: 1s; }
+    .star:nth-child(4) { left: 35%; animation-delay: 1.5s; }
+    .star:nth-child(5) { left: 45%; animation-delay: 2s; }
+    .star:nth-child(6) { left: 55%; animation-delay: 2.5s; }
+    .star:nth-child(7) { left: 65%; animation-delay: 3s; }
+    .star:nth-child(8) { left: 75%; animation-delay: 3.5s; }
+    .star:nth-child(9) { left: 85%; animation-delay: 4s; }
+    .star:nth-child(10) { left: 95%; animation-delay: 4.5s; }
+    
+    @keyframes starRain {
+      0% {
+        transform: translateY(0px) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+    
+    /* Wish Button Styles */
+    .wish-section {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 15px;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+      z-index: 1000;
+      min-width: 250px;
+    }
+    
+    .wish-input {
+      width: calc(100% - 4px);
+      padding: 10px;
+      border: 2px solid #ff6b6b;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      font-size: 14px;
+      box-sizing: border-box;
+      outline: none;
+    }
+    
+    .wish-input:focus {
+      border-color: #ff9ff3;
+      box-shadow: 0 0 5px rgba(255, 107, 107, 0.5);
+    }
+    
+    .wish-btn {
+      background: linear-gradient(45deg, #ff6b6b, #feca57);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold;
+      width: 100%;
+      margin-bottom: 5px;
+      transition: all 0.3s ease;
+    }
+    
+    .wish-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+    
+    .share-btn {
+      background: linear-gradient(45deg, #4facfe, #00f2fe);
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 12px;
+      width: 100%;
+      transition: all 0.3s ease;
+      display: none;
+    }
+    
+    .share-btn:hover {
+      transform: scale(1.05);
+    }
+    
+    .wish-display {
+      background: rgba(255, 255, 255, 0.8);
+      padding: 10px;
+      border-radius: 8px;
+      margin-top: 10px;
+      font-size: 14px;
+      display: none;
+      text-align: center;
+      color: #800000;
+    }
+  </style>
 </head>
 <body>
-<!-- partial:index.partial.html -->
-<div id="drag-container">
-  <div id="spin-container">
 
+<!-- Balloons -->
+<div class="balloon"></div>
+<div class="balloon"></div>
+<div class="balloon"></div>
+<div class="balloon"></div>
+<div class="balloon"></div>
+<div class="balloon"></div>
 
+<!-- Raining Stars -->
+<div class="star">⭐</div>
+<div class="star">✨</div>
+<div class="star">🌟</div>
+<div class="star">⭐</div>
+<div class="star">✨</div>
+<div class="star">🌟</div>
+<div class="star">⭐</div>
+<div class="star">✨</div>
+<div class="star">🌟</div>
+<div class="star">⭐</div>
 
+<div class="main-frame">
+  <!-- Left side decoration -->
+  <img src="imgs/11.png" alt="Left Rakhi Decoration" class="side-decoration left-decoration">
 
+  <!-- Right side decoration -->
+  <img src="imgs/12.png" alt="Right Rakhi Decoration" class="side-decoration right-decoration">
 
-
-
-    <img src="imgs/1.jpg" alt="">
-    <img src="imgs/2.jpg" alt="">
-    <img src="imgs/3.jpg" alt="">
-    <img src="imgs/4.jpg" alt="">
-    <img src="imgs/5.jpg" alt="">
-    <img src="imgs/6.jpg" alt="">
-    <img src="imgs/7.jpg" alt="">
-
-
-    <video controls autoplay="autoplay" loop>
-      <source src="imgs/29.mp4" type="video/mp4">
-    </video>
-
-    <!-- Text at center of ground -->
-    <p>     Follow <mark>College_wishlist</mark></p>
+  <div class="frame-header">
+    <!-- Left header rakhi -->
+    <div class="header-rakhi header-rakhi-left"></div>
+    
+    <!-- Right header rakhi -->
+    <div class="header-rakhi header-rakhi-right"></div>
+    
+    <h1>🎀 रक्षा बंधन की हार्दिक शुभकामनाएं 2025 🎀</h1>
+    <small>भाई-बहन के पवित्र रिश्ते का पावन त्योहार ❤️</small>
   </div>
-  <div id="ground"></div>
+
+  <div id="drag-container">
+    <div id="spin-container">
+
+      <img src="imgs/1.jpg" alt="">
+      <img src="imgs/2.jpg" alt=""> 
+      <img src="imgs/3.jpg" alt="">
+      <img src="imgs/4.jpg" alt="">
+      <img src="imgs/5.jpg" alt="">
+      <img src="imgs/6.jpg" alt="">
+      <img src="imgs/7.jpeg" alt="">
+      <img src="imgs/8.png" alt="">
+      <img src="imgs/9.png" alt="">
+      <img src="imgs/10.jpg" alt="">
+
+
+      <!-- Text at center of ground -->
+      <p> Happy Rakshabandhan by  <mark>Pankaj coding</mark></p>
+    </div>
+    <div id="ground"></div>
+  </div>
+</div>
+
+<!-- Wish Section -->
+<div class="wish-section">
+  <h4 style="margin: 0 0 10px 0; color: #800000; text-align: center;">🎀 अपना नाम लिखें 🎀</h4>
+  <input type="text" class="wish-input" id="wisherName" placeholder="अपना नाम यहाँ लिखें..." autocomplete="off" spellcheck="false">
+  <button class="wish-btn" onclick="generateWish()">शुभकामना बनाएं</button>
+  <div class="wish-display" id="wishDisplay"></div>
+  <button class="share-btn" id="shareBtn" onclick="shareWish()">शेयर करें</button>
 </div>
 
 <div id="music-container"></div>
@@ -42,6 +449,79 @@
 <style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
 <!-- partial -->
   <script  src="./script.js"></script>
+  <script>
+let currentWish = '';
+let wisherName = '';
+
+// Ensure input field is properly focused
+document.addEventListener('DOMContentLoaded', function() {
+  const inputField = document.getElementById('wisherName');
+  
+  // Remove any potential interference
+  inputField.addEventListener('focus', function() {
+    this.style.pointerEvents = 'auto';
+  });
+  
+  inputField.addEventListener('click', function() {
+    this.focus();
+  });
+});
+
+function generateWish() {
+  const inputElement = document.getElementById('wisherName');
+  wisherName = inputElement.value.trim();
+  
+  if (!wisherName) {
+    alert('कृपया अपना नाम लिखें!');
+    inputElement.focus();
+    return;
+  }
+  
+  const wishes = [
+    `प्रिय मित्रों, ${wisherName} की ओर से रक्षाबंधन की हार्दिक शुभकामनाएं! 🎀`,
+    `${wisherName} के द्वारा भेजी गई रक्षाबंधन की शुभकामनाएं। भाई-बहन का प्रेम सदा बना रहे! ❤️`,
+    `रक्षाबंधन के पावन अवसर पर ${wisherName} की शुभकामनाएं आप सभी के लिए! 🌸`,
+    `${wisherName} की तरफ से - राखी के इस त्योहार में खुशियों की बौछार हो! 🎊`
+  ];
+  
+  currentWish = wishes[Math.floor(Math.random() * wishes.length)];
+  
+  const wishDisplay = document.getElementById('wishDisplay');
+  const shareBtn = document.getElementById('shareBtn');
+  
+  wishDisplay.innerHTML = currentWish;
+  wishDisplay.style.display = 'block';
+  shareBtn.style.display = 'block';
+}
+
+function shareWish() {
+  if (currentWish) {
+    const shareText = `${currentWish}\n\n- ${wisherName}\n\n🎀 रक्षाबंधन 2025 🎀`;
+    
+    if (navigator.share) {
+      navigator.share({
+        title: 'रक्षाबंधन की शुभकामनाएं',
+        text: shareText
+      });
+    } else {
+      // Fallback for browsers that don't support Web Share API
+      navigator.clipboard.writeText(shareText).then(() => {
+        alert('शुभकामना कॉपी हो गई! अब आप इसे कहीं भी पेस्ट कर सकते हैं।');
+      }).catch(() => {
+        // Manual copy fallback
+        const textArea = document.createElement('textarea');
+        textArea.value = shareText;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        alert('शुभकामना कॉपी हो गई! अब आप इसे कहीं भी पेस्ट कर सकते हैं।');
+      });
+    }
+  }
+}
+</script>
 
 </body>
+</html>
 

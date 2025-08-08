@@ -278,7 +278,7 @@
       position: relative;
       margin: auto;
       transform-style: preserve-3d;
-      animation: spin 20s linear infinite;
+      animation: spin 40s linear infinite;
     }
     
     @keyframes spin {
@@ -609,7 +609,7 @@
         width: 150px !important;
         height: 150px !important;
         position: relative !important;
-        animation: autoRotateMobile 15s linear infinite !important;
+        animation: autoRotateMobile 30s linear infinite !important;
         margin: auto !important;
       }
       
@@ -661,7 +661,7 @@
       #spin-container {
         width: 120px !important;
         height: 120px !important;
-        animation: autoRotateSmallMobile 12s linear infinite !important;
+        animation: autoRotateSmallMobile 25s linear infinite !important;
       }
       
       @keyframes autoRotateSmallMobile {
@@ -1038,16 +1038,34 @@ document.addEventListener('DOMContentLoaded', () => {
   
   const playPromise = backgroundMusic.play();
   
-  if
+  if (playPromise !== undefined) {
     playPromise.then(() => {
       console.log('Music started automatically');
     }).catch(error => {
       console.log('Autoplay prevented, trying user interaction');
-      // Try to enable on first user interaction
       document.addEventListener('click', enableAudio, { once: true });
       document.addEventListener('touchstart', enableAudio, { once: true });
     });
   }
+});
+
+// Handle window resize for responsive 3D positioning
+window.addEventListener('resize', () => {
+  const spinContainer = document.getElementById('spin-container');
+  const images = spinContainer.querySelectorAll('img');
+  const numberOfImages = images.length;
+  
+  images.forEach((img, index) => {
+    const rotateY = (360 / numberOfImages) * index;
+    
+    if (window.innerWidth <= 480) {
+      img.style.transform = `rotateY(${rotateY}deg) translateZ(100px)`;
+    } else if (window.innerWidth <= 768) {
+      img.style.transform = `rotateY(${rotateY}deg) translateZ(120px)`;
+    } else {
+      img.style.transform = `rotateY(${rotateY}deg) translateZ(300px)`;
+    }
+  });
 });
 
 function enableAudio() {
@@ -1076,8 +1094,6 @@ function closeWish() {
 }
 </script>
 
-</body>
-</html>
 </body>
 </html>
 

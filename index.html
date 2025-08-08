@@ -456,207 +456,161 @@
       }
       
       .side-decoration {
-        width: 150px !important;
-        height: 180px !important;
+        width: 140px !important;
+        height: 170px !important;
         display: block !important;
         visibility: visible !important;
         opacity: 0.9 !important;
         z-index: 10 !important;
+        top: auto !important;
+        bottom: 90px !important;
+        transform: none !important;
       }
       
       .left-decoration {
-        left: -10px !important;
-        animation: slideDownLeftMobile 8s ease-out forwards, floatLeft 4s ease-in-out infinite 8s !important;
+        left: 5px !important;
+        animation: slideUpLeftEnhanced 8s ease-out forwards 1s !important;
       }
       
       .right-decoration {
-        right: -10px !important;
-        animation: slideDownRightMobile 8s ease-out forwards 2s, floatRight 4s ease-in-out infinite 10s !important;
+        right: 5px !important;
+        animation: slideUpRightEnhanced 8s ease-out forwards 2s !important;
       }
       
-      @keyframes slideDownLeftMobile {
+      @keyframes slideUpLeftEnhanced {
         0% {
-          top: -100vh;
+          bottom: -200px;
           opacity: 0;
-          transform: translateY(0) translateX(-30px) rotate(-15deg);
+          transform: translateX(-30px) rotate(-15deg) scale(0.5);
+        }
+        25% {
+          bottom: -100px;
+          opacity: 0.3;
+          transform: translateX(-20px) rotate(-10deg) scale(0.7);
         }
         50% {
-          opacity: 0.5;
-          transform: translateY(40vh) translateX(-15px) rotate(-8deg);
+          bottom: -20px;
+          opacity: 0.6;
+          transform: translateX(-10px) rotate(-5deg) scale(0.85);
+        }
+        75% {
+          bottom: 70px;
+          opacity: 0.8;
+          transform: translateX(-3px) rotate(-2deg) scale(0.95);
         }
         100% {
-          top: 50%;
+          bottom: 90px;
           opacity: 0.9;
-          transform: translateY(-50%) translateX(0) rotate(0deg);
+          transform: translateX(0) rotate(0deg) scale(1);
         }
       }
       
-      @keyframes slideDownRightMobile {
+      @keyframes slideUpRightEnhanced {
         0% {
-          top: -100vh;
+          bottom: -200px;
           opacity: 0;
-          transform: translateY(0) translateX(30px) rotate(15deg);
+          transform: translateX(30px) rotate(15deg) scale(0.5);
+        }
+        25% {
+          bottom: -100px;
+          opacity: 0.3;
+          transform: translateX(20px) rotate(10deg) scale(0.7);
         }
         50% {
-          opacity: 0.5;
-          transform: translateY(40vh) translateX(15px) rotate(8deg);
+          bottom: -20px;
+          opacity: 0.6;
+          transform: translateX(10px) rotate(5deg) scale(0.85);
+        }
+        75% {
+          bottom: 70px;
+          opacity: 0.8;
+          transform: translateX(3px) rotate(2deg) scale(0.95);
         }
         100% {
-          top: 50%;
+          bottom: 90px;
           opacity: 0.9;
-          transform: translateY(-50%) translateX(0) rotate(0deg);
+          transform: translateX(0) rotate(0deg) scale(1);
         }
       }
       
       .side-decoration:hover {
         opacity: 1 !important;
-        transform: translateY(-50%) scale(1.05) !important;
+        transform: scale(1.1) !important;
+      }
+      
+      .header-rakhi {
+        width: 20px !important;
+        height: 20px !important;
+        border: 1px solid #ffd700 !important;
+        display: block !important;
+      }
+      
+      .header-rakhi::before {
+        font-size: 8px !important;
+      }
+      
+      .header-rakhi-left {
+        left: 3px !important;
+      }
+      
+      .header-rakhi-right {
+        right: 3px !important;
       }
       
       .frame-header {
         padding: 8px;
         margin-bottom: 8px;
-        min-height: 60px;
-      }
-      
-      .frame-header h1 {
-        font-size: 16px;
-        margin-bottom: 5px;
-        line-height: 1.1;
-      }
-      
-      .frame-header small {
-        font-size: 12px;
-      }
-      
-      #spin-container img {
-        width: 80px !important;
-        height: 100px !important;
-        margin: 10px;
-      }
-      
-      #spin-container .img {
-        width: 80px !important;
-        height: 100px !important;
-        margin: 10px;
-      }
-      
-      #spin-container > * {
-        margin: 15px !important;
-      }
-      
-      #spin-container p {
-        font-size: 12px;
-        margin: 5px;
-      }
-      
-      #drag-container {
-        margin-top: -20px;
-        padding-top: 0;
-      }
-      
-      .balloon {
-        width: 20px;
-        height: 30px;
-      }
-      
-      .star {
-        font-size: 12px;
-      }
-      
-      /* Wish Button Mobile */
-      .wish-button-container {
-        position: fixed !important;
-        bottom: 15px !important;
-        left: 50% !important;
-        transform: translateX(-50%) !important;
-        z-index: 1000 !important;
-        width: auto !important;
-      }
-      
-      .wish-button-container button {
-        padding: 10px 20px !important;
-        font-size: 14px !important;
-        border-radius: 20px !important;
-      }
-      
-      /* Modal Mobile */
-      #wishModal {
-        padding: 10px !important;
-      }
-      
-      #wishModal > div {
-        max-width: 95vw !important;
-        margin: 5px !important;
-        padding: 15px !important;
-        border-radius: 15px !important;
-      }
-      
-      #wishModal h2 {
-        font-size: 14px !important;
-        white-space: normal !important;
-        line-height: 1.2 !important;
-        margin-bottom: 10px !important;
-      }
-      
-      #wishModal p {
-        font-size: 12px !important;
-        line-height: 1.4 !important;
-        margin-bottom: 15px !important;
-      }
-      
-      #wishModal button {
-        padding: 8px 16px !important;
-        font-size: 14px !important;
-      }
-      
-      /* GitHub corner hide on mobile */
-      .github-corner {
-        display: none !important;
+        min-height: 50px;
       }
     }
     
     /* Small Mobile Phones (320px - 480px) */
     @media screen and (max-width: 480px) {
       .side-decoration {
-        width: 120px !important;
-        height: 150px !important;
-        opacity: 0.8 !important;
+        width: 110px !important;
+        height: 140px !important;
+        bottom: 80px !important;
       }
       
       .left-decoration {
-        left: -5px !important;
+        left: 3px !important;
       }
       
       .right-decoration {
-        right: -5px !important;
+        right: 3px !important;
       }
       
-      .frame-header h1 {
-        font-size: 14px;
+      #spin-container {
+        transform: translateY(-50px) !important;
       }
       
-      .frame-header small {
-        font-size: 10px;
+      #drag-container {
+        margin-top: -70px !important;
       }
       
-      #spin-container img {
-        width: 60px !important;
-        height: 80px !important;
-        margin: 8px;
+      .header-rakhi {
+        width: 15px !important;
+        height: 15px !important;
+        border: 1px solid #ffd700 !important;
       }
       
-      #spin-container .img {
-        width: 60px !important;
-        height: 80px !important;
-        margin: 8px;
+      .header-rakhi::before {
+        font-size: 6px !important;
       }
       
-      #spin-container > * {
-        margin: 12px !important;
+      .header-rakhi-left {
+        left: 2px !important;
+      }
+      
+      .header-rakhi-right {
+        right: 2px !important;
+      }
+      
+      .frame-header {
+        min-height: 45px;
       }
     }
-    
+
     /* Tablets (769px - 1024px) */
     @media screen and (min-width: 769px) and (max-width: 1024px) {
       .side-decoration {
@@ -966,6 +920,102 @@
 
 <!-- GitHub Corner Link -->
 <a href="https://github.com/codrops/3d-carousel" class="github-corner" aria-label="View source on GitHub">
+  <svg width="80" height="80" viewBox="0 0 250 250" style="fill:#4f46e5; color:#fff; position:fixed; top:0; right:0; z-index:1000;" aria-hidden="true">
+    <g stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="fill:none; stroke:#fff;">
+      <path class="octo-arm" d="M128 109c-4-2-8-6-8-10s4-8 8-10c4 2 8 6 8 10s-4 8-8 10zM122 97c-4-2-8-6-8-10s4-8 8-10c4 2 8 6 8 10s-4 8-8 10z" style="opacity:.6;"/>
+      <path class="octo-body" d="M115 97c-4-2-8-6-8-10s4-8 8-10c4 2 8 6 8 10s-4 8-8 10zM115 77c-4-2-8-6-8-10s4-8 8-10c4 2 8 6 8 10s-4 8-8 10zM115 57c-4-2-8-6-8-10s4-8 8-10c4 2 8 6 8 10s-4 8-8 10zM115 37c-4-2-8-6-8-10s4-8 8-10c4 2 8 6 8 10s-4 8-8 10zM135 97c4-2 8-6 8-10s-4-8-8-10c-4 2-8 6-8 10s4 8 8 10zM135 77c4-2 8-6 8-10s-4-8-8-10c-4 2-8 6-8 10s4 8 8 10zM135 57c4-2 8-6 8-10s-4-8-8-10c-4 2-8 6-8 10s4 8 8 10zM135 37c4-2 8-6 8-10s-4-8-8-10c-4 2-8 6-8 10s4 8 8 10z" style="opacity:.6;"/>
+    </g>
+  </svg>
+</a>
+
+<!-- GitHub Corner Script -->
+<style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<!-- partial -->
+<script src="./script.js"></script>
+<script>
+const backgroundMusic = document.getElementById('backgroundMusic');
+const wishButtonMusic = document.getElementById('wishButtonMusic');
+
+// Force autoplay on page load
+document.addEventListener('DOMContentLoaded', () => {
+  backgroundMusic.volume = 0.3;
+  backgroundMusic.muted = false;
+  
+  // Try to play immediately
+  const playPromise = backgroundMusic.play();
+  
+  if (playPromise !== undefined) {
+    playPromise.then(() => {
+      console.log('Music started automatically');
+    }).catch(error => {
+      console.log('Autoplay prevented, trying user interaction');
+      // Try to enable on first user interaction
+      document.addEventListener('click', enableAudio, { once: true });
+      document.addEventListener('touchstart', enableAudio, { once: true });
+    });
+  }
+});
+
+function enableAudio() {
+  backgroundMusic.play().then(() => {
+    console.log('Music enabled after user interaction');
+  }).catch(error => {
+    console.log('Failed to enable music:', error);
+  });
+}
+
+// Set up wish button music
+wishButtonMusic.volume = 0.5;
+
+function showWish() {
+  // Play wish button sound
+  wishButtonMusic.currentTime = 0;
+  wishButtonMusic.play().catch(error => {
+    console.log('Wish button music failed to play:', error);
+  });
+  
+  document.getElementById('wishModal').style.display = 'flex';
+}
+
+function closeWish() {
+  document.getElementById('wishModal').style.display = 'none';
+}
+</script>
+
+</body>
+</html>
+
+// Set up wish button music
+wishButtonMusic.volume = 0.5;
+
+function showWish() {
+  // Play wish button sound
+  wishButtonMusic.currentTime = 0;
+  wishButtonMusic.play().catch(error => {
+    console.log('Wish button music failed to play:', error);
+  });
+  
+  document.getElementById('wishModal').style.display = 'flex';
+}
+
+function closeWish() {
+  document.getElementById('wishModal').style.display = 'none';
+}
+</script>
+
+</body>
+</html>
+  
+  document.getElementById('wishModal').style.display = 'flex';
+}
+
+function closeWish() {
+  document.getElementById('wishModal').style.display = 'none';
+}
+</script>
+
+</body>
+</html>
   <svg width="80" height="80" viewBox="0 0 250 250" style="fill:#4f46e5; color:#fff; position:fixed; top:0; right:0; z-index:1000;" aria-hidden="true">
     <g stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="fill:none; stroke:#fff;">
       <path class="octo-arm" d="M128 109c-4-2-8-6-8-10s4-8 8-10c4 2 8 6 8 10s-4 8-8 10zM122 97c-4-2-8-6-8-10s4-8 8-10c4 2 8 6 8 10s-4 8-8 10z" style="opacity:.6;"/>

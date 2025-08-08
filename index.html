@@ -640,56 +640,6 @@
       #spin-container:active {
         animation-play-state: paused !important;
       }
-      
-      /* Wish Button Mobile - Fixed */
-      .wish-button-container {
-        position: fixed !important;
-        bottom: 10px !important;
-        left: 50% !important;
-        transform: translateX(-50%) !important;
-        z-index: 2001 !important;
-        width: auto !important;
-        display: block !important;
-        visibility: visible !important;
-      }
-      
-      .wish-button-container button {
-        padding: 8px 16px !important;
-        font-size: 12px !important;
-        border-radius: 15px !important;
-        white-space: nowrap !important;
-        min-width: 120px !important;
-      }
-      
-      /* Modal Mobile */
-      #wishModal {
-        padding: 10px !important;
-      }
-      
-      #wishModal > div {
-        max-width: 95vw !important;
-        margin: 5px !important;
-        padding: 15px !important;
-        border-radius: 15px !important;
-      }
-      
-      #wishModal h2 {
-        font-size: 14px !important;
-        white-space: normal !important;
-        line-height: 1.2 !important;
-        margin-bottom: 10px !important;
-      }
-      
-      #wishModal p {
-        font-size: 12px !important;
-        line-height: 1.4 !important;
-        margin-bottom: 15px !important;
-      }
-      
-      #wishModal button {
-        padding: 8px 16px !important;
-        font-size: 14px !important;
-      }
     }
     
     /* Small Mobile Phones (320px - 480px) */
@@ -1061,7 +1011,6 @@
 <script>
 const backgroundMusic = document.getElementById('backgroundMusic');
 const wishButtonMusic = document.getElementById('wishButtonMusic');
-let audioEnabled = false;
 
 // Initialize 3D carousel positioning
 document.addEventListener('DOMContentLoaded', () => {
@@ -1086,10 +1035,18 @@ document.addEventListener('DOMContentLoaded', () => {
   // Music setup
   backgroundMusic.volume = 0.3;
   backgroundMusic.muted = false;
-  wishButtonMusic.volume = 0.5;
   
-  // Try to enable audio immediately
-  enableAudioPlayback();
+  const playPromise = backgroundMusic.play();
+  
+  if (playPromise !== undefined) {
+    playPromise.then(() => {
+      console.log('Music started automatically');
+    }).catch(error => {
+      console.log('Autoplay prevented, trying user interaction');
+      document.addEventListener('click', enableAudio, { once: true });
+      document.addEventListener('touchstart', enableAudio, { once: true });
+    });
+  }
 });
 
 // Handle window resize for responsive 3D positioning
@@ -1111,61 +1068,23 @@ window.addEventListener('resize', () => {
   });
 });
 
-function enableAudioPlayback() {
-  if (!audioEnabled) {
-    const playPromise = backgroundMusic.play();
-    
-    if (playPromise !== undefined) {
-      playPromise.then(() => {
-        console.log('Music started automatically');
-        audioEnabled = true;
-      }).catch(error => {
-        console.log('Autoplay prevented, will enable on user interaction');
-        // Add listeners for user interaction on mobile
-        document.addEventListener('click', enableAudio, { once: true });
-        document.addEventListener('touchstart', enableAudio, { once: true });
-        document.addEventListener('touchend', enableAudio, { once: true });
-      });
-    }
-  }
+function enableAudio() {
+  backgroundMusic.play().then(() => {
+    console.log('Music enabled after user interaction');
+  }).catch(error => {
+    console.log('Failed to enable music:', error);
+  });
 }
 
-function enableAudio() {
-  if (!audioEnabled) {
-    backgroundMusic.play().then(() => {
-      console.log('Music enabled after user interaction');
-      audioEnabled = true;
-    }).catch(error => {
-      console.log('Failed to enable music:', error);
-    });
-  }
-}
+// Set up wish button music
+wishButtonMusic.volume = 0.5;
 
 function showWish() {
-  // Ensure audio is enabled first for mobile
-  if (!audioEnabled) {
-    enableAudio();
-  }
-  
-  // Play wish button sound with mobile compatibility
-  try {
-    wishButtonMusic.currentTime = 0;
-    const playPromise = wishButtonMusic.play();
-    
-    if (playPromise !== undefined) {
-      playPromise.then(() => {
-        console.log('Wish button music played successfully');
-      }).catch(error => {
-        console.log('Wish button music failed to play:', error);
-        // For mobile, try to play background music instead
-        if (!audioEnabled) {
-          enableAudio();
-        }
-      });
-    }
-  } catch (error) {
-    console.log('Audio play error:', error);
-  }
+  // Play wish button sound
+  wishButtonMusic.currentTime = 0;
+  wishButtonMusic.play().catch(error => {
+    console.log('Wish button music failed to play:', error);
+  });
   
   document.getElementById('wishModal').style.display = 'flex';
 }
@@ -1173,24 +1092,6 @@ function showWish() {
 function closeWish() {
   document.getElementById('wishModal').style.display = 'none';
 }
-
-// Add touch event handlers for mobile audio activation
-document.addEventListener('touchstart', function() {
-  if (!audioEnabled) {
-    enableAudio();
-  }
-}, { passive: true });
-
-// Ensure wish button works on mobile
-document.addEventListener('DOMContentLoaded', function() {
-  const wishButton = document.querySelector('.wish-button-container button');
-  if (wishButton) {
-    wishButton.addEventListener('touchstart', function(e) {
-      e.preventDefault();
-      showWish();
-    }, { passive: false });
-  }
-});
 </script>
 
 </body>

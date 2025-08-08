@@ -2,6 +2,7 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>College Wishlist - 3D carousel</title>
   <link rel="stylesheet" href="./style.css">
 
@@ -14,17 +15,25 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/v4-shims.min.css">
 
   <style>
-    body {
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+    
+    html, body {
+      width: 100%;
+      height: 100%;
       margin: 0;
       padding: 0;
+      overflow: hidden;
+      position: fixed;
+    }
+    
+    body {
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      overflow: hidden;
-      /* background: linear-gradient(45deg, #ff9a9e, #fecfef, #fecfef, #f093fb, #f5576c, #4facfe, #00f2fe);
-      background-size: 400% 400%;
-      animation: backgroundShift 8s ease-in-out infinite; */
     }
     
     @keyframes backgroundShift {
@@ -69,7 +78,7 @@
       object-fit: contain;
       border-radius: 0;
       border: none;
-      opacity: 0.8;
+      opacity: 0;
       transition: all 0.3s ease;
       z-index: 5;
       box-shadow: none;
@@ -82,12 +91,70 @@
     
     .left-decoration {
       left: 5px;
-      animation: floatLeft 4s ease-in-out infinite;
+      animation: slideDownLeft 10s ease-out forwards, floatLeft 4s ease-in-out infinite 10s;
     }
     
     .right-decoration {
       right: 5px;
-      animation: floatRight 4s ease-in-out infinite 2s;
+      animation: slideDownRight 10s ease-out forwards 3s, floatRight 4s ease-in-out infinite 13s;
+    }
+    
+    @keyframes slideDownLeft {
+      0% {
+        top: -100vh;
+        opacity: 0;
+        transform: translateY(0) translateX(-20px) rotate(-10deg);
+      }
+      20% {
+        opacity: 0.2;
+        transform: translateY(10vh) translateX(-18px) rotate(-8deg);
+      }
+      40% {
+        opacity: 0.4;
+        transform: translateY(30vh) translateX(-12px) rotate(-6deg);
+      }
+      60% {
+        opacity: 0.5;
+        transform: translateY(45vh) translateX(-8px) rotate(-4deg);
+      }
+      80% {
+        opacity: 0.7;
+        transform: translateY(60vh) translateX(-3px) rotate(-2deg);
+      }
+      100% {
+        top: 50%;
+        opacity: 0.8;
+        transform: translateY(-50%) translateX(0) rotate(0deg);
+      }
+    }
+    
+    @keyframes slideDownRight {
+      0% {
+        top: -100vh;
+        opacity: 0;
+        transform: translateY(0) translateX(20px) rotate(10deg);
+      }
+      20% {
+        opacity: 0.2;
+        transform: translateY(10vh) translateX(18px) rotate(8deg);
+      }
+      40% {
+        opacity: 0.4;
+        transform: translateY(30vh) translateX(12px) rotate(6deg);
+      }
+      60% {
+        opacity: 0.5;
+        transform: translateY(45vh) translateX(8px) rotate(4deg);
+      }
+      80% {
+        opacity: 0.7;
+        transform: translateY(60vh) translateX(3px) rotate(2deg);
+      }
+      100% {
+        top: 50%;
+        opacity: 0.8;
+        transform: translateY(-50%) translateX(0) rotate(0deg);
+      }
     }
     
     @keyframes floatLeft {
@@ -370,6 +437,430 @@
       text-align: center;
       color: #800000;
     }
+    
+    /* Responsive Design */
+    
+    /* Mobile Phones - Enhanced (320px - 768px) */
+    @media screen and (max-width: 768px) {
+      html, body {
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+      }
+      
+      .main-frame {
+        width: 100vw;
+        height: 100vh;
+        padding: 5px;
+        overflow: hidden;
+      }
+      
+      .side-decoration {
+        width: 150px !important;
+        height: 180px !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 0.9 !important;
+        z-index: 10 !important;
+      }
+      
+      .left-decoration {
+        left: -10px !important;
+        animation: slideDownLeftMobile 8s ease-out forwards, floatLeft 4s ease-in-out infinite 8s !important;
+      }
+      
+      .right-decoration {
+        right: -10px !important;
+        animation: slideDownRightMobile 8s ease-out forwards 2s, floatRight 4s ease-in-out infinite 10s !important;
+      }
+      
+      @keyframes slideDownLeftMobile {
+        0% {
+          top: -100vh;
+          opacity: 0;
+          transform: translateY(0) translateX(-30px) rotate(-15deg);
+        }
+        50% {
+          opacity: 0.5;
+          transform: translateY(40vh) translateX(-15px) rotate(-8deg);
+        }
+        100% {
+          top: 50%;
+          opacity: 0.9;
+          transform: translateY(-50%) translateX(0) rotate(0deg);
+        }
+      }
+      
+      @keyframes slideDownRightMobile {
+        0% {
+          top: -100vh;
+          opacity: 0;
+          transform: translateY(0) translateX(30px) rotate(15deg);
+        }
+        50% {
+          opacity: 0.5;
+          transform: translateY(40vh) translateX(15px) rotate(8deg);
+        }
+        100% {
+          top: 50%;
+          opacity: 0.9;
+          transform: translateY(-50%) translateX(0) rotate(0deg);
+        }
+      }
+      
+      .side-decoration:hover {
+        opacity: 1 !important;
+        transform: translateY(-50%) scale(1.05) !important;
+      }
+      
+      .frame-header {
+        padding: 8px;
+        margin-bottom: 8px;
+        min-height: 60px;
+      }
+      
+      .frame-header h1 {
+        font-size: 16px;
+        margin-bottom: 5px;
+        line-height: 1.1;
+      }
+      
+      .frame-header small {
+        font-size: 12px;
+      }
+      
+      #spin-container img {
+        width: 80px !important;
+        height: 100px !important;
+        margin: 10px;
+      }
+      
+      #spin-container .img {
+        width: 80px !important;
+        height: 100px !important;
+        margin: 10px;
+      }
+      
+      #spin-container > * {
+        margin: 15px !important;
+      }
+      
+      #spin-container p {
+        font-size: 12px;
+        margin: 5px;
+      }
+      
+      #drag-container {
+        margin-top: -20px;
+        padding-top: 0;
+      }
+      
+      .balloon {
+        width: 20px;
+        height: 30px;
+      }
+      
+      .star {
+        font-size: 12px;
+      }
+      
+      /* Wish Button Mobile */
+      .wish-button-container {
+        position: fixed !important;
+        bottom: 15px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        z-index: 1000 !important;
+        width: auto !important;
+      }
+      
+      .wish-button-container button {
+        padding: 10px 20px !important;
+        font-size: 14px !important;
+        border-radius: 20px !important;
+      }
+      
+      /* Modal Mobile */
+      #wishModal {
+        padding: 10px !important;
+      }
+      
+      #wishModal > div {
+        max-width: 95vw !important;
+        margin: 5px !important;
+        padding: 15px !important;
+        border-radius: 15px !important;
+      }
+      
+      #wishModal h2 {
+        font-size: 14px !important;
+        white-space: normal !important;
+        line-height: 1.2 !important;
+        margin-bottom: 10px !important;
+      }
+      
+      #wishModal p {
+        font-size: 12px !important;
+        line-height: 1.4 !important;
+        margin-bottom: 15px !important;
+      }
+      
+      #wishModal button {
+        padding: 8px 16px !important;
+        font-size: 14px !important;
+      }
+      
+      /* GitHub corner hide on mobile */
+      .github-corner {
+        display: none !important;
+      }
+    }
+    
+    /* Small Mobile Phones (320px - 480px) */
+    @media screen and (max-width: 480px) {
+      .side-decoration {
+        width: 120px !important;
+        height: 150px !important;
+        opacity: 0.8 !important;
+      }
+      
+      .left-decoration {
+        left: -5px !important;
+      }
+      
+      .right-decoration {
+        right: -5px !important;
+      }
+      
+      .frame-header h1 {
+        font-size: 14px;
+      }
+      
+      .frame-header small {
+        font-size: 10px;
+      }
+      
+      #spin-container img {
+        width: 60px !important;
+        height: 80px !important;
+        margin: 8px;
+      }
+      
+      #spin-container .img {
+        width: 60px !important;
+        height: 80px !important;
+        margin: 8px;
+      }
+      
+      #spin-container > * {
+        margin: 12px !important;
+      }
+    }
+    
+    /* Tablets (769px - 1024px) */
+    @media screen and (min-width: 769px) and (max-width: 1024px) {
+      .side-decoration {
+        width: 200px;
+        height: 250px;
+      }
+      
+      .left-decoration {
+        left: 3px;
+      }
+      
+      .right-decoration {
+        right: 3px;
+      }
+      
+      .header-rakhi {
+        width: 60px;
+        height: 60px;
+        border: 3px solid #ffd700;
+      }
+      
+      .header-rakhi::before {
+        font-size: 22px;
+      }
+      
+      .header-rakhi-left {
+        left: 10px;
+      }
+      
+      .header-rakhi-right {
+        right: 10px;
+      }
+      
+      .frame-header {
+        padding: 15px;
+        margin-bottom: 15px;
+        min-height: 100px;
+      }
+      
+      .frame-header h1 {
+        font-size: clamp(20px, 3.5vw, 28px);
+        margin-bottom: 10px;
+      }
+      
+      .frame-header small {
+        font-size: clamp(14px, 2vw, 18px);
+      }
+      
+      #spin-container img {
+        width: 160px !important;
+        height: 200px !important;
+        margin: 20px;
+      }
+      
+      #spin-container .img {
+        width: 160px !important;
+        height: 200px !important;
+        margin: 20px;
+      }
+      
+      #spin-container > * {
+        margin: 25px !important;
+      }
+      
+      #drag-container {
+        margin-top: -40px;
+      }
+      
+      .balloon {
+        width: 30px;
+        height: 45px;
+      }
+      
+      .star {
+        font-size: 16px;
+      }
+      
+      .wish-section {
+        bottom: 15px;
+        right: 15px;
+        min-width: 200px;
+        padding: 12px;
+      }
+    }
+    
+    /* Laptops (1025px - 1440px) */
+    @media screen and (min-width: 1025px) and (max-width: 1440px) {
+      .side-decoration {
+        width: 250px;
+        height: 320px;
+      }
+      
+      .header-rakhi {
+        width: 70px;
+        height: 70px;
+      }
+      
+      .header-rakhi::before {
+        font-size: 26px;
+      }
+      
+      #spin-container img {
+        width: 180px !important;
+        height: 220px !important;
+        margin: 22px;
+      }
+      
+      #spin-container .img {
+        width: 180px !important;
+        height: 220px !important;
+        margin: 22px;
+      }
+      
+      #spin-container > * {
+        margin: 28px !important;
+      }
+    }
+    
+    /* Large Desktops (1441px and above) */
+    @media screen and (min-width: 1441px) {
+      .side-decoration {
+        width: 350px;
+        height: 420px;
+      }
+      
+      .header-rakhi {
+        width: 90px;
+        height: 90px;
+        border: 5px solid #ffd700;
+      }
+      
+      .header-rakhi::before {
+        font-size: 34px;
+      }
+      
+      .header-rakhi-left {
+        left: 20px;
+      }
+      
+      .header-rakhi-right {
+        right: 20px;
+      }
+      
+      #spin-container img {
+        width: 220px !important;
+        height: 270px !important;
+        margin: 28px;
+      }
+      
+      #spin-container .img {
+        width: 220px !important;
+        height: 270px !important;
+        margin: 28px;
+      }
+      
+      #spin-container > * {
+        margin: 32px !important;
+      }
+      
+      .balloon {
+        width: 50px;
+        height: 75px;
+      }
+      
+      .star {
+        font-size: 24px;
+      }
+    }
+    
+    /* Landscape Mobile */
+    @media screen and (max-height: 500px) and (orientation: landscape) {
+      .frame-header {
+        padding: 5px;
+        margin-bottom: 5px;
+        min-height: 60px;
+      }
+      
+      .frame-header h1 {
+        font-size: 16px;
+        margin-bottom: 5px;
+      }
+      
+      .frame-header small {
+        font-size: 12px;
+      }
+      
+      .header-rakhi {
+        width: 30px;
+        height: 30px;
+      }
+      
+      .header-rakhi::before {
+        font-size: 12px;
+      }
+      
+      .side-decoration {
+        width: 80px;
+        height: 100px;
+      }
+      
+      #drag-container {
+        margin-top: -20px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -434,91 +925,106 @@
   </div>
 </div>
 
-<!-- Wish Section -->
-<div class="wish-section">
-  <h4 style="margin: 0 0 10px 0; color: #800000; text-align: center;">🎀 अपना नाम लिखें 🎀</h4>
-  <input type="text" class="wish-input" id="wisherName" placeholder="अपना नाम यहाँ लिखें..." autocomplete="off" spellcheck="false">
-  <button class="wish-btn" onclick="generateWish()">शुभकामना बनाएं</button>
-  <div class="wish-display" id="wishDisplay"></div>
-  <button class="share-btn" id="shareBtn" onclick="shareWish()">शेयर करें</button>
+<!-- Wish Button - Updated with class for better mobile targeting -->
+<div class="wish-button-container" style="position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 1000;">
+  <button onclick="showWish()" style="background: linear-gradient(45deg, #ff6b6b, #feca57); color: white; border: none; padding: 15px 30px; border-radius: 25px; font-size: 18px; font-weight: bold; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.3); transition: all 0.3s ease;">
+    🎀 यहाँ दबाएँ 🎀
+  </button>
+</div>
+
+
+<!-- Wish Display Modal -->
+<div id="wishModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center;">
+  <div style="background: white; padding: 30px; border-radius: 20px; max-width: 500px; text-align: center; margin: 20px;">
+    <h2 style="color: #800000; margin-bottom: 20px; white-space: nowrap; font-size: clamp(16px, 3vw, 24px);">🎀 रक्षाबंधन की हार्दिक शुभकामनाएं गुडी🎀</h2>
+    <p style="font-size: 18px; line-height: 1.6; color: #333; margin-bottom: 20px;">
+      भाई-बहन के पवित्र रिश्ते का यह पावन त्योहार आपके जीवन में खुशियों की बौछार लाए। 
+      राखी के इस पवित्र धागे से जुड़ा प्रेम और स्नेह सदा बना रहे। 
+      आपको और आपके परिवार को रक्षाबंधन की ढेर सारी शुभकामनाएं! ❤️
+    </p>
+    <button onclick="closeWish()" style="background: linear-gradient(45deg, #4facfe, #00f2fe); color: white; border: none; padding: 10px 20px; border-radius: 15px; font-size: 16px; cursor: pointer;">
+      Thank You !
+    </button>
+  </div>
 </div>
 
 <div id="music-container"></div>
 
+<!-- Background Music -->
+<audio id="backgroundMusic" loop autoplay preload="auto" muted="false">
+  <source src="imgs/m1.mp3" type="audio/mpeg">
+  <source src="imgs/m1.mp3" type="audio/ogg">
+  Your browser does not support the audio element.
+</audio>
 
+<!-- Wish Button Click Music -->
+<audio id="wishButtonMusic" preload="auto">
+  <source src="imgs/m1.mp3" type="audio/mpeg">
+  <source src="imgs/m1.mp3" type="audio/wav">
+  Your browser does not support the audio element.
+</audio>
+
+<!-- GitHub Corner Link -->
+<a href="https://github.com/codrops/3d-carousel" class="github-corner" aria-label="View source on GitHub">
+  <svg width="80" height="80" viewBox="0 0 250 250" style="fill:#4f46e5; color:#fff; position:fixed; top:0; right:0; z-index:1000;" aria-hidden="true">
+    <g stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="fill:none; stroke:#fff;">
+      <path class="octo-arm" d="M128 109c-4-2-8-6-8-10s4-8 8-10c4 2 8 6 8 10s-4 8-8 10zM122 97c-4-2-8-6-8-10s4-8 8-10c4 2 8 6 8 10s-4 8-8 10z" style="opacity:.6;"/>
+      <path class="octo-body" d="M115 97c-4-2-8-6-8-10s4-8 8-10c4 2 8 6 8 10s-4 8-8 10zM115 77c-4-2-8-6-8-10s4-8 8-10c4 2 8 6 8 10s-4 8-8 10zM115 57c-4-2-8-6-8-10s4-8 8-10c4 2 8 6 8 10s-4 8-8 10zM115 37c-4-2-8-6-8-10s4-8 8-10c4 2 8 6 8 10s-4 8-8 10zM135 97c4-2 8-6 8-10s-4-8-8-10c-4 2-8 6-8 10s4 8 8 10zM135 77c4-2 8-6 8-10s-4-8-8-10c-4 2-8 6-8 10s4 8 8 10zM135 57c4-2 8-6 8-10s-4-8-8-10c-4 2-8 6-8 10s4 8 8 10zM135 37c4-2 8-6 8-10s-4-8-8-10c-4 2-8 6-8 10s4 8 8 10z" style="opacity:.6;"/>
+    </g>
+  </svg>
+</a>
+
+<!-- GitHub Corner Script -->
 <style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
 <!-- partial -->
-  <script  src="./script.js"></script>
-  <script>
-let currentWish = '';
-let wisherName = '';
+<script src="./script.js"></script>
+<script>
+const backgroundMusic = document.getElementById('backgroundMusic');
+const wishButtonMusic = document.getElementById('wishButtonMusic');
 
-// Ensure input field is properly focused
-document.addEventListener('DOMContentLoaded', function() {
-  const inputField = document.getElementById('wisherName');
+// Force autoplay on page load
+document.addEventListener('DOMContentLoaded', () => {
+  backgroundMusic.volume = 0.3;
+  backgroundMusic.muted = false;
   
-  // Remove any potential interference
-  inputField.addEventListener('focus', function() {
-    this.style.pointerEvents = 'auto';
-  });
+  // Try to play immediately
+  const playPromise = backgroundMusic.play();
   
-  inputField.addEventListener('click', function() {
-    this.focus();
-  });
+  if (playPromise !== undefined) {
+    playPromise.then(() => {
+      console.log('Music started automatically');
+    }).catch(error => {
+      console.log('Autoplay prevented, trying user interaction');
+      // Try to enable on first user interaction
+      document.addEventListener('click', enableAudio, { once: true });
+      document.addEventListener('touchstart', enableAudio, { once: true });
+    });
+  }
 });
 
-function generateWish() {
-  const inputElement = document.getElementById('wisherName');
-  wisherName = inputElement.value.trim();
-  
-  if (!wisherName) {
-    alert('कृपया अपना नाम लिखें!');
-    inputElement.focus();
-    return;
-  }
-  
-  const wishes = [
-    `प्रिय मित्रों, ${wisherName} की ओर से रक्षाबंधन की हार्दिक शुभकामनाएं! 🎀`,
-    `${wisherName} के द्वारा भेजी गई रक्षाबंधन की शुभकामनाएं। भाई-बहन का प्रेम सदा बना रहे! ❤️`,
-    `रक्षाबंधन के पावन अवसर पर ${wisherName} की शुभकामनाएं आप सभी के लिए! 🌸`,
-    `${wisherName} की तरफ से - राखी के इस त्योहार में खुशियों की बौछार हो! 🎊`
-  ];
-  
-  currentWish = wishes[Math.floor(Math.random() * wishes.length)];
-  
-  const wishDisplay = document.getElementById('wishDisplay');
-  const shareBtn = document.getElementById('shareBtn');
-  
-  wishDisplay.innerHTML = currentWish;
-  wishDisplay.style.display = 'block';
-  shareBtn.style.display = 'block';
+function enableAudio() {
+  backgroundMusic.play().then(() => {
+    console.log('Music enabled after user interaction');
+  }).catch(error => {
+    console.log('Failed to enable music:', error);
+  });
 }
 
-function shareWish() {
-  if (currentWish) {
-    const shareText = `${currentWish}\n\n- ${wisherName}\n\n🎀 रक्षाबंधन 2025 🎀`;
-    
-    if (navigator.share) {
-      navigator.share({
-        title: 'रक्षाबंधन की शुभकामनाएं',
-        text: shareText
-      });
-    } else {
-      // Fallback for browsers that don't support Web Share API
-      navigator.clipboard.writeText(shareText).then(() => {
-        alert('शुभकामना कॉपी हो गई! अब आप इसे कहीं भी पेस्ट कर सकते हैं।');
-      }).catch(() => {
-        // Manual copy fallback
-        const textArea = document.createElement('textarea');
-        textArea.value = shareText;
-        document.body.appendChild(textArea);
-        textArea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textArea);
-        alert('शुभकामना कॉपी हो गई! अब आप इसे कहीं भी पेस्ट कर सकते हैं।');
-      });
-    }
-  }
+// Set up wish button music
+wishButtonMusic.volume = 0.5;
+
+function showWish() {
+  // Play wish button sound
+  wishButtonMusic.currentTime = 0;
+  wishButtonMusic.play().catch(error => {
+    console.log('Wish button music failed to play:', error);
+  });
+  
+  document.getElementById('wishModal').style.display = 'flex';
+}
+
+function closeWish() {
+  document.getElementById('wishModal').style.display = 'none';
 }
 </script>
 

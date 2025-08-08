@@ -562,6 +562,61 @@
         margin-bottom: 8px;
         min-height: 50px;
       }
+      
+      .frame-header h1 {
+        font-size: 16px;
+        margin-bottom: 5px;
+        line-height: 1.1;
+      }
+      
+      .frame-header small {
+        font-size: 12px;
+      }
+      
+      #spin-container img {
+        width: 60px !important;
+        height: 75px !important;
+        margin: 3px !important;
+      }
+      
+      #spin-container .img {
+        width: 60px !important;
+        height: 75px !important;
+        margin: 3px !important;
+      }
+      
+      #spin-container > * {
+        margin: 5px !important;
+      }
+      
+      #spin-container p {
+        font-size: 10px;
+        margin: 1px !important;
+      }
+      
+      #drag-container {
+        margin-top: -60px !important;
+        padding-top: 0;
+        flex: 1;
+        justify-content: center;
+      }
+      
+      #spin-container {
+        transform: translateY(-40px) !important;
+        animation: none !important;
+      }
+      
+      /* Ensure spin container maintains 3D rotation */
+      #spin-container {
+        transform-style: preserve-3d !important;
+        animation: none !important;
+      }
+      
+      /* Re-enable carousel functionality for mobile */
+      #spin-container img {
+        pointer-events: auto !important;
+        cursor: pointer !important;
+      }
     }
     
     /* Small Mobile Phones (320px - 480px) */
@@ -984,61 +1039,6 @@ function closeWish() {
 
 </body>
 </html>
-
-// Set up wish button music
-wishButtonMusic.volume = 0.5;
-
-function showWish() {
-  // Play wish button sound
-  wishButtonMusic.currentTime = 0;
-  wishButtonMusic.play().catch(error => {
-    console.log('Wish button music failed to play:', error);
-  });
-  
-  document.getElementById('wishModal').style.display = 'flex';
-}
-
-function closeWish() {
-  document.getElementById('wishModal').style.display = 'none';
-}
-</script>
-
-</body>
-</html>
-  
-  document.getElementById('wishModal').style.display = 'flex';
-}
-
-function closeWish() {
-  document.getElementById('wishModal').style.display = 'none';
-}
-</script>
-
-</body>
-</html>
-  <svg width="80" height="80" viewBox="0 0 250 250" style="fill:#4f46e5; color:#fff; position:fixed; top:0; right:0; z-index:1000;" aria-hidden="true">
-    <g stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="fill:none; stroke:#fff;">
-      <path class="octo-arm" d="M128 109c-4-2-8-6-8-10s4-8 8-10c4 2 8 6 8 10s-4 8-8 10zM122 97c-4-2-8-6-8-10s4-8 8-10c4 2 8 6 8 10s-4 8-8 10z" style="opacity:.6;"/>
-      <path class="octo-body" d="M115 97c-4-2-8-6-8-10s4-8 8-10c4 2 8 6 8 10s-4 8-8 10zM115 77c-4-2-8-6-8-10s4-8 8-10c4 2 8 6 8 10s-4 8-8 10zM115 57c-4-2-8-6-8-10s4-8 8-10c4 2 8 6 8 10s-4 8-8 10zM115 37c-4-2-8-6-8-10s4-8 8-10c4 2 8 6 8 10s-4 8-8 10zM135 97c4-2 8-6 8-10s-4-8-8-10c-4 2-8 6-8 10s4 8 8 10zM135 77c4-2 8-6 8-10s-4-8-8-10c-4 2-8 6-8 10s4 8 8 10zM135 57c4-2 8-6 8-10s-4-8-8-10c-4 2-8 6-8 10s4 8 8 10zM135 37c4-2 8-6 8-10s-4-8-8-10c-4 2-8 6-8 10s4 8 8 10z" style="opacity:.6;"/>
-    </g>
-  </svg>
-</a>
-
-<!-- GitHub Corner Script -->
-<style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
-<!-- partial -->
-<script src="./script.js"></script>
-<script>
-const backgroundMusic = document.getElementById('backgroundMusic');
-const wishButtonMusic = document.getElementById('wishButtonMusic');
-
-// Force autoplay on page load
-document.addEventListener('DOMContentLoaded', () => {
-  backgroundMusic.volume = 0.3;
-  backgroundMusic.muted = false;
-  
-  // Try to play immediately
-  const playPromise = backgroundMusic.play();
   
   if (playPromise !== undefined) {
     playPromise.then(() => {
